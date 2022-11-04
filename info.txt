@@ -1,0 +1,30 @@
+Alix DANVY 
+
+Q1: Modélisation
+        1) les variables Xij indiquent si le chemin continue de la ville i à la ville j: 1 si oui, 0 sinon.
+        2) les variables Ui sont des variables arbitraires qui correspondent à quelle étape du parcours la ville i est atteinte.
+
+        3) Explications des 4 contraintes utilisées:
+            a) (sum Xij = 1 où i de 1 à n et i!=j) pour j de 1 à n : sert à s'assurer qu'une ville ne se connecte qu'à une seule ville.
+
+            b) (sum Xij = 1 où j de 1 à n et j!=i) pour i de 1 à n : sert à s'assurer qu'une ville n'est raliée que par une seule autre ville.
+
+            Les contraintes suivantes permettent de s'assurer que l'on a un seul parcours qui relie toutes les villes ensembles Et pas plusieurs disjoints.
+            c) Ui - Uj + n*Xij <= n -1 où 2 <= i != j <= n : On s'assure ici que chaque tour passe par toutes les villes.
+            d) 1 <= Ui <= n - 1 où 2 <= i != j <= n : On s'assure ici d'avoir n étapes maximum pour réaliser le parcours reliant chaque ville.
+
+        4) la fonction objectif et son sens d'optimisations,
+            min (sum( sum( Cij * Xij ) où j de 1 à n et j!=i) où i de 1 à n) :
+                Ici Cij correspond à la distance de la ville i à la ville j. Autrement dit on fait la somme de toutes distances entre les villes connectées (quand Xij = 1, car égale 0 sinon).
+                La fonction va dont ici nous permettre de chercher la solution dont le chemin total parcouru est le plus court possible parmi les solutions proposées qui satisfont les contraintes précédentes en choisissant celle dont la longueur du chemin total parcouru est minimal.
+
+
+Q2: Inplémentation -> VOIR DM_prog_lin.cpp
+Pour compiler : g++ DM_prog_lin.cpp -llpsolve55 -lcolamd -ldl -o MyExe
+
+ 
+Opérations sur le fichier .dot: 
+    1) Pour visualiser directement le fichier : dot -Kneato -n -Tx11 <NameDot>.dot
+    2) Pour transformer le fichier dot en pdf : dot -Kneato -n -Tpdf <fichier.dot> -o <nomPDF>.pdf
+    
+    note: /!\ J'applique une facteur 10 à la position les villes dans l'écriture du fichier .dot car cela s'avéré nécéssaire pour une meilleure visualisation des points et du parcours.
